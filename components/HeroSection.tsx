@@ -1,4 +1,5 @@
 import { HeroWrapper, Headline, Subtitle, CTAButtons, PrimaryButton, SecondaryButton } from './styles/HeroSection.styles';
+import Button from './Button';
 
 export default function HeroSection() {
   return (
@@ -8,6 +9,7 @@ export default function HeroSection() {
       <CTAButtons>
         <PrimaryButton href="/signup">Get Started</PrimaryButton>
         <SecondaryButton href="/updates">See Updates</SecondaryButton>
+        <Button variant='primary' href='/contact'>Contact Us</Button>
       </CTAButtons>
     </HeroWrapper>
   );
