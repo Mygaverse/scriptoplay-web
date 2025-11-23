@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { motion } from "framer-motion";
 
 const Section = styled.section`
   padding: 3rem 2rem;
@@ -25,10 +26,17 @@ const Button = styled.a`
 
 export default function CTAUpdates() {
   return (
-    <Section>
-      <h2>Want to know what’s new?</h2>
-      <p>Check out our changelog and upcoming features.</p>
-      <Button href="/updates">See Updates</Button>
-    </Section>
+    <motion.section
+      className="bg-dark text-white text-center py-20 px-4"
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <Section>
+        <h2>Want to know what’s new?</h2>
+        <p>Check out our changelog and upcoming features.</p>
+        <Button href="/updates">See Updates</Button>
+      </Section>
+    </motion.section>
   );
 }

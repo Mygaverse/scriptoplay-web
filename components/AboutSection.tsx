@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { motion } from "framer-motion";
 
 const Section = styled.section`
   padding: 4rem 2rem;
@@ -29,22 +30,29 @@ const Card = styled.div`
 
 export default function AboutSection() {
   return (
-    <Section>
-      <Title>Why Scriptoplay?</Title>
-      <Grid>
-        <Card>
-          <h3>AI-Powered Assistance</h3>
-          <p>Our intelligent tools help turn raw ideas into structured scripts with ease.</p>
-        </Card>
-        <Card>
-          <h3>Designed for Writers</h3>
-          <p>Built with screenwriters in mind — not developers or engineers.</p>
-        </Card>
-        <Card>
-          <h3>Feedback-Driven Design</h3>
-          <p>Get real, structured feedback and improve your work version by version.</p>
-        </Card>
-      </Grid>
-    </Section>
+    <motion.section
+      className="bg-dark text-white text-center py-20 px-4"
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <Section>
+        <Title>Why Scriptoplay?</Title>
+        <Grid>
+          <Card>
+            <h3>AI-Powered Assistance</h3>
+            <p>Our intelligent tools help turn raw ideas into structured scripts with ease.</p>
+          </Card>
+          <Card>
+            <h3>Designed for Writers</h3>
+            <p>Built with screenwriters in mind — not developers or engineers.</p>
+          </Card>
+          <Card>
+            <h3>Feedback-Driven Design</h3>
+            <p>Get real, structured feedback and improve your work version by version.</p>
+          </Card>
+        </Grid>
+      </Section>
+    </motion.section>
   );
 }

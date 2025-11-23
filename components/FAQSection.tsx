@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { motion } from "framer-motion";
 
 const Section = styled.section`
   padding: 4rem 2rem;
@@ -58,14 +59,21 @@ export default function FAQSection() {
   };
 
   return (
-    <Section>
-      <Title>Frequently Asked Questions</Title>
-      {faqs.map((item, index) => (
-        <FAQItem key={index} onClick={() => toggle(index)}>
-          <Question>{item.q}</Question>
-          <Answer isOpen={openIndex === index}>{item.a}</Answer>
-        </FAQItem>
-      ))}
-    </Section>
+    <motion.section
+      className="bg-dark text-white text-center py-20 px-4"
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <Section>
+        <Title>Frequently Asked Questions</Title>
+        {faqs.map((item, index) => (
+          <FAQItem key={index} onClick={() => toggle(index)}>
+            <Question>{item.q}</Question>
+            <Answer isOpen={openIndex === index}>{item.a}</Answer>
+          </FAQItem>
+        ))}
+      </Section>
+    </motion.section>
   );
 }
