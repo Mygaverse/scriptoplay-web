@@ -1,4 +1,29 @@
+
+
+
 import '../styles/globals.css';
+import { ThemeProvider } from 'styled-components';
+
+const theme = {
+  colors: {
+    primary: '#0070f3',
+    background: '#f5f5f5',
+    text: '#111',
+  },
+};
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <ThemeProvider theme={theme}>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
+}
+
+export default MyApp;
+
+
+/* import '../styles/globals.css';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
@@ -19,3 +44,4 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+*/
