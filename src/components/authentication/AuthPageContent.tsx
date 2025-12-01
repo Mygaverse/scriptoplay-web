@@ -97,7 +97,7 @@ const LoginForm = ({ onSwitchToWaitlist, isLoading, setLoading }: { onSwitchToWa
         <button 
           type="button"
           onClick={() => handleSocialLogin('Google')}
-          className="flex items-center justify-center gap-2 bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 hover:border-zinc-700 text-zinc-300 py-3 rounded-lg transition-all text-sm font-medium"
+          className="cursor-pointer flex items-center justify-center gap-2 bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 hover:border-zinc-700 text-zinc-300 py-3 rounded-lg transition-all text-sm font-medium"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M21.35 11.1h-9.17v2.98h5.24c-.22 1.18-.88 2.18-1.87 2.85v2.36h3.03c1.77-1.63 2.8-4.02 2.8-6.73 0-.67-.06-1.33-.16-1.97z" /><path fill="currentColor" d="M12.18 21c2.56 0 4.71-.85 6.29-2.31l-3.03-2.36c-.85.57-1.94.91-3.26.91-2.48 0-4.58-1.68-5.33-3.93h-3.13v2.43c1.55 3.08 4.73 5.19 8.27 5.19z" /><path fill="currentColor" d="M6.85 13.31c-.19-.57-.3-1.18-.3-1.81s.11-1.24.3-1.81V7.26H3.72C3.08 8.54 2.72 9.98 2.72 11.5s.36 2.96 1 4.24l3.13-2.43z" /><path fill="currentColor" d="M12.18 5.48c1.39 0 2.64.48 3.63 1.42l2.72-2.72C16.89 2.61 14.74 1.73 12.18 1.73 8.64 1.73 5.46 3.84 3.91 6.92l3.13 2.43c.75-2.25 2.85-3.93 5.33-3.93z" /></svg>
           <span className="hidden sm:inline">Login with </span> Google
@@ -105,7 +105,7 @@ const LoginForm = ({ onSwitchToWaitlist, isLoading, setLoading }: { onSwitchToWa
         <button 
           type="button"
           onClick={() => handleSocialLogin('Facebook')}
-          className="flex items-center justify-center gap-2 bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 hover:border-zinc-700 text-zinc-300 py-3 rounded-lg transition-all text-sm font-medium"
+          className="cursor-pointer flex items-center justify-center gap-2 bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 hover:border-zinc-700 text-zinc-300 py-3 rounded-lg transition-all text-sm font-medium"
         >
           <svg className="w-5 h-5 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036c-2.048 0-2.606.492-2.606 1.691v2.28h3.907l-.543 3.667h-3.364v7.98h-5.208Z" /></svg>
           <span className="hidden sm:inline">Login with </span> Facebook
@@ -162,7 +162,7 @@ const LoginForm = ({ onSwitchToWaitlist, isLoading, setLoading }: { onSwitchToWa
         <button 
           type="submit" 
           disabled={isLoading}
-          className="w-full bg-gradient-to-r from-fuchsia-500 to-purple-700 hover:from-fuchsia-500 hover:to-purple-600 text-white font-semibold py-3.5 rounded-full transition-all shadow-lg shadow-purple-900/20 active:scale-[0.98] flex items-center justify-center gap-2"
+          className="cursor-pointer disabled:cursor-not-allowed w-full bg-gradient-to-r from-fuchsia-500 to-purple-700 hover:from-fuchsia-500 hover:to-purple-600 text-white font-semibold py-3.5 rounded-full transition-all shadow-lg shadow-purple-900/20 active:scale-[0.98] flex items-center justify-center gap-2"
         >
           {isLoading ? <Loader2 className="animate-spin w-5 h-5" /> : 'Sign in'}
         </button>
@@ -170,7 +170,7 @@ const LoginForm = ({ onSwitchToWaitlist, isLoading, setLoading }: { onSwitchToWa
 
       <p className="mt-8 text-center text-zinc-500 text-sm">
         Don't have account yet?{' '}
-        <button onClick={onSwitchToWaitlist} className="text-fuchsia-300 hover:text-fuchsia-400 font-medium underline-offset-4 hover:underline transition-colors">
+        <button onClick={onSwitchToWaitlist} className="cursor-pointer text-fuchsia-300 hover:text-fuchsia-400 font-medium underline-offset-4 hover:underline transition-colors">
           Sign up
         </button>
       </p>
@@ -246,12 +246,13 @@ const WaitlistForm = ({ onBack, isLoading, setLoading }: { onBack: () => void, i
         <p className="text-zinc-400 mb-8 max-w-xs mx-auto">
           Something amazing is coming. We've sent a confirmation email to <span className="text-white font-medium">{form.email}</span>.
         </p>
-        <button 
-          onClick={onBack} 
-          className="text-fuchsia-500 hover:text-fuchsia-400 flex items-center justify-center gap-2 mx-auto transition-colors"
+        <Link 
+          //onClick={onBack} 
+          href="/"
+          className="cursor-pointer text-fuchsia-500 hover:text-fuchsia-400 flex items-center justify-center gap-2 mx-auto transition-colors"
         >
-          Back to Sign In <ArrowRight className="w-4 h-4" />
-        </button>
+          Back to Home <ArrowRight className="w-4 h-4" />
+        </Link>
       </div>
     );
   }
@@ -364,7 +365,7 @@ const WaitlistForm = ({ onBack, isLoading, setLoading }: { onBack: () => void, i
             <button 
                 type="submit" 
                 disabled={isLoading}
-                className="w-full sm:w-auto px-8 bg-[#C22883] hover:bg-[#a0206b] text-white font-semibold py-3 rounded-lg transition-all shadow-lg shadow-fuchsia-900/20 active:scale-[0.98] flex items-center justify-center gap-2 text-sm"
+                className="cursor-pointer disabled:cursor-not-allowed w-full sm:w-auto px-8 bg-[#C22883] hover:bg-[#a0206b] text-white font-semibold py-3 rounded-lg transition-all shadow-lg shadow-fuchsia-900/20 active:scale-[0.98] flex items-center justify-center gap-2 text-sm"
             >
                 {isLoading ? <Loader2 className="animate-spin w-4 h-4" /> : (
                   <>
@@ -379,7 +380,7 @@ const WaitlistForm = ({ onBack, isLoading, setLoading }: { onBack: () => void, i
 
       {/* Footer / Back Link */}
       <div className="mt-8 flex items-center justify-between border-t border-zinc-800 pt-6">
-         <button onClick={onBack} className="text-sm text-zinc-500 hover:text-white transition-colors flex items-center gap-1">
+         <button onClick={onBack} className="cursor-pointer text-sm text-zinc-500 hover:text-white transition-colors flex items-center gap-1">
             &larr; Back to login
          </button>
          <span className="text-md text-zinc-600">
