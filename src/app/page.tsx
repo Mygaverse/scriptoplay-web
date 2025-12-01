@@ -8,7 +8,6 @@ import FeaturesGeneration from '@/components/landing/FeaturesGeneration';
 import FeaturesEvaluation from '@/components/landing/FeaturesEvaluation';
 import About from '@/components/landing/About';
 import FAQ from '@/components/landing/FAQ';
-import Contact from '@/components/landing/Contact';
 
 export const metadata: Metadata = {
   title: 'Scriptoplay | AI Script to Film',
