@@ -206,7 +206,21 @@ const WaitlistForm = ({ onBack, isLoading, setLoading }: { onBack: () => void, i
       await addDoc(collection(db, "waitlist_requests"), {
         ...form,
         createdAt: serverTimestamp(),
-        status: 'pending_review' 
+        status: 'pending_review',
+
+        // --- FIELDS FOR FIREBASE EMAIL EXTENSION ---
+        to: form.email, 
+        message: {
+          subject: "Welcome to the Scriptoplay Waitlist!",
+          html: `
+            <h1>Hi ${form.name},</h1>
+            <p>Thanks for your interest in Scriptoplay. We have received your request.</p>
+            <p><strong>Role:</strong> ${form.role}</p>
+            <p>Our system is currently available for invites only. But once we are available for public test, we'll contact you!</p>
+            <br />
+            <p>The Scriptoplay Team</p>
+          `
+        }
       });
       
       setSuccess(true);
