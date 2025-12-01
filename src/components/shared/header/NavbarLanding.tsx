@@ -7,7 +7,13 @@ import { ArrowIcon, XIcon } from '@/icons';
 
 const NavbarLanding = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const navLinks = ["Generation", "Evaluation", "About", "FAQ", "Updates"];
+  const navLinks = [
+    { label: "Generation", href: "/#generation" },
+    { label: "Evaluation", href: "/#evaluation" },
+    { label: "About",      href: "/#about" },
+    { label: "FAQ",        href: "/#faq" },
+    { label: "Updates",    href: "/updates" }, // <--- Points to the real page now
+  ];
 
   return (
     // OUTER CONTAINER:
@@ -47,16 +53,21 @@ const NavbarLanding = () => {
 
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-8">
+          {/* 2. CHANGE: Map over the objects now */}
           {navLinks.map((link) => (
-            <Link key={link} href={`#${link.toLowerCase()}`} className="text-md font-medium text-white hover:text-gray-400 transition-colors tracking-wide">
-              {link}
+            <Link 
+              key={link.label} 
+              href={link.href} // Use the custom href from the object
+              className="text-md font-medium text-white hover:text-gray-400 transition-colors tracking-wide"
+            >
+              {link.label} {/* Render the label */}
             </Link>
           ))}
         </div>
 
         {/* Action Button using ArrowIcon from your file */}
         <div className="hidden md:block">
-          <Link href="/signup" className=" text-white px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 shadow-2xl bg-gradient-to-r from-[#DD136A] to-[#482C5C]">
+          <Link href="/authentication" className=" text-white px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 shadow-2xl bg-gradient-to-r from-[#DD136A] to-[#482C5C]">
             Get Started
              {/* Using your custom ArrowIcon */}
             <ArrowIcon className="w-4 h-4 stroke-white group-hover:translate-x-1 transition-transform" />
@@ -83,9 +94,15 @@ const NavbarLanding = () => {
       {/* Mobile Menu Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-black border-b border-white/10 p-4 space-y-4">
+           {/* 3. CHANGE: Update Mobile Mapping as well */}
            {navLinks.map((link) => (
-            <Link key={link} href={`#${link.toLowerCase()}`} className="block text-gray-300 hover:text-white" onClick={() => setIsOpen(false)}>
-              {link}
+            <Link 
+              key={link.label} 
+              href={link.href} 
+              className="block text-gray-300 hover:text-white" 
+              onClick={() => setIsOpen(false)}
+            >
+              {link.label}
             </Link>
           ))}
         </div>
