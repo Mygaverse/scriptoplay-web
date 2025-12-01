@@ -29,6 +29,7 @@
     "react-leaflet": "^5.0.0",
     "react-markdown": "^10.1.0",
     "rehype-slug": "^6.0.0",
+    "styled-components": "^6.1.19",
     "swiper": "^11.2.10"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "@types/node": "^20",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
+    "@types/styled-components": "^5.1.36",
     "clsx": "^2.1.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.0",
