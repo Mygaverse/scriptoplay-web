@@ -7,11 +7,11 @@ import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, CheckCircle, Loader2, ArrowRight } from 'lucide-react';
 
 // --- FIREBASE IMPORTS (Uncomment when ready) ---
-/* 
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { collection, addDoc } from 'firebase/firestore'; 
-import { auth, db } from '@/lib/firebase'; 
-*/
+
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { collection, addDoc, doc, getDoc, serverTimestamp } from 'firebase/firestore'; 
+import { auth, db } from '../../../firebase/firebase'; 
+
 
 // ==========================================
 // 1. LOGIN FORM COMPONENT
@@ -26,23 +26,63 @@ const LoginForm = ({ onSwitchToWaitlist, isLoading, setLoading }: { onSwitchToWa
     setLoading(true);
     
     try {
-      // --- UNCOMMENT FOR FIREBASE ---
-      // await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      
-      // Mock logic for demo
-      await new Promise(resolve => setTimeout(resolve, 1500)); 
-      router.push('/dashboard'); 
-    } catch (error) {
-      console.error("Login failed", error);
-      alert("Login failed (simulated). Check console.");
-    } finally {
-      setLoading(false);
-    }
+       // 1. Authenticate against Firebase Auth
+       const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
+       const user = userCredential.user;
+
+       // 2. Check Firestore for Access / Approval
+       // We assume if an account exists in Auth, there should be a user doc.
+       // If the admin manually created the user, this doc might contain { hasAccess: true }
+       const userDocRef = doc(db, "users", user.uid);
+       const userDocSnap = await getDoc(userDocRef);
+
+       if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+
+        // If 'hasAccess' is explicitly false, or status is strictly 'waitlist'
+        if (userData.hasAccess === false) {
+           await signOut(auth); // Kick them out
+           alert("Your account is still on the waitlist or pending approval.");
+           setLoading(false);
+           return;
+        }
+       }
+       // Note: If userDoc doesn't exist, we usually allow login or handle edge cases.
+       // For now, we proceed to dashboard.
+
+       router.push('/dashboard');
+     } catch (error: any) {
+       console.error("Login failed", error);
+        let msg = "Login failed.";
+        if (error.code === 'auth/invalid-credential') msg = "Invalid email or password.";
+        if (error.code === 'auth/user-not-found') msg = "No account found with this email.";
+        alert(msg);
+     } finally {
+       setLoading(false);
+     }
   };
 
   const handleSocialLogin = async (providerName: string) => {
-    console.log(`Social Login: ${providerName}`);
-    // Implement Google/Facebook logic here
+    if (providerName === 'Google') {
+        try {
+            const provider = new GoogleAuthProvider();
+            const result = await signInWithPopup(auth, provider);
+            
+            // Optional: Check DB access for Google Users too
+            const userDocRef = doc(db, "users", result.user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+            
+            if (userDocSnap.exists() && userDocSnap.data().hasAccess === false) {
+                 await signOut(auth);
+                 alert("Your account is pending approval.");
+                 return;
+            }
+            
+            router.push('/dashboard');
+        } catch (error) {
+            console.error("Social login error", error);
+        }
+    }
   };
 
   return (
@@ -157,20 +197,22 @@ const WaitlistForm = ({ onBack, isLoading, setLoading }: { onBack: () => void, i
     setLoading(true);
 
     try {
-      // --- UNCOMMENT FOR FIREBASE ---
-      /* 
-      await addDoc(collection(db, "waitlist"), {
+      // --- FIREBASE LOGIC ---
+      // We push the form data to a 'waitlist_requests' collection.
+      // We do NOT create an Auth user here (no password).
+      // You can use a Firebase Extension (Trigger Email) to email the admin 
+      // whenever a document is added to this collection.
+      
+      await addDoc(collection(db, "waitlist_requests"), {
         ...form,
-        createdAt: new Date(),
-        status: 'pending' 
+        createdAt: serverTimestamp(),
+        status: 'pending_review' 
       });
-      */
-
-      // Mock delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      
       setSuccess(true);
     } catch (error) {
       console.error("Waitlist error", error);
+      alert("Something went wrong submitting your request.");
     } finally {
       setLoading(false);
     }
