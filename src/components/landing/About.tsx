@@ -1,4 +1,4 @@
-import { UserGroupIcon, TaskIcon, ProjectSatisfiedClientsIconDark, ProjectTeamMembersIconDark, CompanyProgressIcon, CompanyProgressIcon2, GraphCheckIcon } from "@/icons";
+import { UserGroupIcon, TaskIcon, GraphCheckIcon } from "@/icons";
 
 import RevealAnimation from '../animation/RevealAnimation';
 
