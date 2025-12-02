@@ -1,10 +1,10 @@
-import { Inter_Tight } from 'next/font/google';
+import { Outfit } from 'next/font/google';
 
-const interTight = Inter_Tight({
+const outfit = Outfit({
   subsets: ['latin'],
-  variable: '--font-interTight',
+  variable: '--font-outfit',
   display: 'swap',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 });
 
-export { interTight };
+export { outfit };

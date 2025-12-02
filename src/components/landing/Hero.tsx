@@ -62,7 +62,7 @@ const Hero = () => {
         {/* Action Buttons */}
         <RevealAnimation delay={0.5} direction="down" duration={1.2} offset={60}>
           <div className="mt-10 mb-10 flex flex-wrap justify-center gap-4">
-            <Link href="/signup" className=" text-white px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 shadow-2xl bg-gradient-to-r from-[#DD136A] to-[#482C5C]">
+            <Link href="/authentication" className=" text-white px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 shadow-2xl bg-gradient-to-r from-[#DD136A] to-[#482C5C]">
               Get Started
               {/* Using your custom ArrowIcon */}
               <ArrowIcon className="w-4 h-4 stroke-white group-hover:translate-x-1 transition-transform" />

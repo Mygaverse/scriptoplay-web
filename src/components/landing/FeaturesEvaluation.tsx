@@ -95,7 +95,7 @@ const FeaturesEvaluation = () => {
                title="Script Evaluation with Score Feedback"
                desc="Receive detailed evaluations across categories like plot coherence, dialogue strength, character development, and pacing."
                visual={
-                 <div className="h-64 bg-gray-200/80 rounded-xl p-3 flex gap-3 text-[10px] text-gray-500 overflow-hidden relative">
+                 <div className="h-64 bg-gray-200/60 rounded-xl p-3 flex gap-3 text-[12px] text-gray-700 overflow-hidden relative">
                     
                     {/* PANEL 1: SIDEBAR (Static) */}
                     <div className="w-1/4 flex flex-col gap-2 pt-2">
@@ -107,7 +107,7 @@ const FeaturesEvaluation = () => {
                     </div>
 
                     {/* PANEL 2: CENTER (Line by Line Text Reveal) */}
-                    <div className="w-1/2 bg-gray-300/40 rounded-lg border border-gray-400/20 relative overflow-hidden shadow-inner flex flex-col">
+                    <div className="w-1/2 bg-gray-200/40 rounded-lg border border-gray-400/20 relative overflow-hidden shadow-inner flex flex-col">
                         {/* macOS dots */}
                         <div className="flex gap-1 p-2 border-b border-gray-400/10 bg-gray-400/10">
                            <div className="w-1.5 h-1.5 rounded-full bg-red-400"></div>
@@ -120,7 +120,7 @@ const FeaturesEvaluation = () => {
                            {scriptLines.map((line, index) => (
                              <div key={index} className="overflow-hidden">
                                <p 
-                                 className="animate-line-reveal font-mono text-[10px] leading-tight text-gray-600 dark:text-gray-200"
+                                 className="animate-line-reveal font-mono text-[11px] leading-tight text-gray-600 dark:text-gray-200"
                                  // Stagger delays: Each line waits 0.5s after the previous one
                                  style={{ animationDelay: `${index * 0.8}s` }}
                                >
@@ -133,16 +133,16 @@ const FeaturesEvaluation = () => {
 
                     {/* PANEL 3: RIGHT (Score & Progress Bar) */}
                     <div className="w-1/4 bg-gray-300/50 rounded-lg flex flex-col items-center justify-center gap-3 p-2 text-center border border-white/50">
-                        <span className="text-gray-500 text-[9px]">Overall:</span>
-                        <span className="text-2xl font-bold text-[#a22070]">48.9%</span>
+                        <span className="text-gray-500 text-[12px]">Overall:</span>
+                        <span className="text-2xl font-bold text-[#a22070]">78.9%</span>
                         
                         {/* Progress Bar with Motion */}
                         <div className="w-full h-1 bg-gray-300 rounded-full overflow-hidden relative">
                            <div className="absolute top-0 h-full w-1/3 bg-[#a22070] rounded-full animate-progress"></div>
                         </div>
 
-                        <p className="text-[7px] leading-tight text-gray-400 mt-1">
-                           Overall now you have 48.9% better system as compared to previous week.
+                        <p className="text-[12px] leading-tight text-gray-400 mt-1">
+                           Your overall scirpt evaluation score is 78.9%.
                         </p>
                         
                         <div className="bg-[#dba2c8] text-white w-full py-1.5 rounded mt-auto font-medium shadow-sm">
@@ -160,11 +160,11 @@ const FeaturesEvaluation = () => {
                title="Script Insights Dashboard & Reports"
                desc="Visualize your script’s structure, emotional rhythm, and act balance. Track improvements with version comparisons."
                visual={
-                 <div className="h-64 bg-gray-200/80 rounded-xl p-3 flex gap-3 text-[10px] text-gray-500 overflow-hidden">
+                 <div className="h-64 bg-gray-200/60 rounded-xl p-3 flex gap-3 text-[12px] text-gray-700 overflow-hidden">
                     
                     {/* PANEL 1: SIDEBAR (Icons) */}
                     <div className="w-1/4 flex flex-col gap-2 pt-2">
-                       <div className="flex items-center gap-1 opacity-50"><div className="w-1.5 h-1.5 rounded-full bg-green-400"></div> Generating...</div>
+                       <div className="flex items-center gap-1 opacity-80"><div className="w-1.5 h-1.5 rounded-full bg-green-400"></div> Generating...</div>
                        <div className="mt-2 space-y-2">
                           <div className="bg-[#a22070] text-white p-1.5 rounded shadow-md flex gap-1 items-center">
                             <span className="w-2 h-2 border border-white rounded-[1px]"></span> Financial...
@@ -179,7 +179,7 @@ const FeaturesEvaluation = () => {
 
                     {/* PANEL 2: DASHBOARD CHARTS (Bar Animation) */}
                     <div className="w-1/2 flex flex-col gap-2">
-                       <div className="bg-gray-400/40 rounded-lg h-1/2 p-2 relative flex items-end justify-center gap-2 border border-gray-400/20 shadow-inner">
+                       <div className="bg-gray-300/40 rounded-lg h-1/2 p-2 relative flex items-end justify-center gap-2 border border-gray-400/20 shadow-inner">
                           {/* macOS dots */}
                           <div className="absolute top-2 left-2 flex gap-1">
                              <div className="w-1.5 h-1.5 rounded-full bg-red-400"></div>
@@ -188,21 +188,25 @@ const FeaturesEvaluation = () => {
                           
                           {/* Animated Bars - Staggered Delays */}
                           <div className="w-3 bg-gray-300 rounded-t-sm h-[40%] animate-grow-bar" style={{ animationDelay: '0s' }}></div>
-                          <div className="w-3 bg-gray-300 rounded-t-sm h-[60%] animate-grow-bar" style={{ animationDelay: '0.2s' }}></div>
-                          <div className="w-3 bg-gray-300 rounded-t-sm h-[30%] animate-grow-bar" style={{ animationDelay: '0.4s' }}></div>
+                          <div className="w-3 bg-gray-400/60 rounded-t-sm h-[60%] animate-grow-bar" style={{ animationDelay: '0.2s' }}></div>
+                          <div className="w-3 bg-[#dba2c8] rounded-t-sm h-[30%] animate-grow-bar" style={{ animationDelay: '0.4s' }}></div>
                           {/* The Pink Bar */}
                           <div className="w-3 bg-[#a22070] rounded-t-sm h-[70%] animate-grow-bar" style={{ animationDelay: '0.6s' }}></div>
                        </div>
                        
                        {/* Bottom chart placeholder */}
-                       <div className="bg-gray-400/40 rounded-lg h-1/2 p-2 border border-gray-400/20 flex gap-2 items-center">
-                          <div className="w-1/2 space-y-1">
+                       <div className="bg-gray-300/40 rounded-lg h-1/2 p-2 border border-gray-400/20 flex gap-2 items-center">
+                          <div className="w-full space-y-2">
                              <div className="h-0.5 w-full bg-white/50"></div>
                              <div className="h-0.5 w-full bg-white/50"></div>
                              <div className="h-0.5 w-full bg-white/50"></div>
+                             
+                             <div className="h-0.5 w-1/2 bg-white/50"></div>
+                             <div className="h-0.5 w-1/2 bg-white/50"></div>
                           </div>
+                          
                           <div className="w-1/2 h-full flex items-center justify-center">
-                             <div className="w-0.5 h-full bg-white/20 rotate-45"></div>
+                             <div className="w-0.5 h-full bg-white/40 rotate-45"></div>
                           </div>
                        </div>
                     </div>
@@ -210,8 +214,8 @@ const FeaturesEvaluation = () => {
                     {/* PANEL 3: RIGHT (Text Lines) */}
                     <div className="w-1/4 bg-gray-400/30 rounded-lg p-2 border border-white/50">
                        <div className="mb-2 text-white">Script-Insights</div>
-                       <div className="space-y-1.5">
-                          {[1,2,3,4,5,6,7].map(i => (
+                       <div className="space-y-2">
+                          {[1,2,3,4,5,6,7,8].map(i => (
                              <div key={i} className="h-0.5 w-full bg-white/40 rounded"></div>
                           ))}
                        </div>
