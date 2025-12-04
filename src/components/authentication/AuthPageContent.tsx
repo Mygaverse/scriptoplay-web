@@ -213,9 +213,12 @@ const WaitlistForm = ({ onBack, isLoading, setLoading }: { onBack: () => void, i
         message: {
           subject: "Welcome to the Scriptoplay Waitlist!",
           html: `
-            <h1>Hi ${form.name},</h1>
+            <h3>Hi ${form.name},</h3>
             <p>Thanks for your interest in Scriptoplay. We have received your request.</p>
+            <p><strong>Company:</strong> ${form.company}</p>
             <p><strong>Role:</strong> ${form.role}</p>
+            <p><strong>Purpose:</strong> ${form.purpose}</p>
+            <p><strong>Message:</strong> ${form.message}</p>
             <p>Our system is currently available for invites only. But once we are available for public test, we'll contact you!</p>
             <br />
             <p>The Scriptoplay Team</p>
