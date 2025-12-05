@@ -19,12 +19,13 @@ const firebaseConfig = {
   measurementId: "G-SGH4SH3044"
 };
 
+
 // 1. Initialize App (Singleton Pattern for Next.js)
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 // 2. Initialize Services
 export const auth = getAuth(app);
-export const db = getFirestore(app); // Add "scriptoplay-web" as 2nd arg if you were using a specific database ID
+export const db = getFirestore(app, 'scriptoplay-web'); // Add "scriptoplay-web" as 2nd arg if you were using a specific database ID
 
 // 3. Initialize Analytics (SAFELY)
 let analytics;
