@@ -74,15 +74,15 @@ const ChangeLogs = () => {
       {/* Header Section */}
       <div className="relative z-10 text-center mb-24 space-y-6">
         {/* Badge */}
-        <RevealAnimation delay={0.3} direction="down" duration={1.2} offset={60}>
+        <RevealAnimation delay={0.1} direction="down" duration={1.2} offset={60}>
             <span className="inline-block px-4 py-2 rounded-xl border border-[#a22070]/50 bg-gray-950 text-gray-400 text-sm font-medium mb-4 tracking-wider">
                 Updates & Changelog
             </span>
         </RevealAnimation>
-        <RevealAnimation delay={0.4} direction="down" duration={1.2} offset={60}>
+        <RevealAnimation delay={0.2} direction="down" duration={1.2} offset={60}>
             <h1 className="text-5xl md:text-6xl text-white font-bold mb-4">What's New</h1>
         </RevealAnimation>
-        <RevealAnimation delay={0.5} direction="down" duration={1.2} offset={60}>
+        <RevealAnimation delay={0.3} direction="down" duration={1.2} offset={60}>
             <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-16">
                 We’re building Scriptoplay in the open. Track our latest improvements, new features, and fixes that help you write smarter and faster.
             </p>

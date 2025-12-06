@@ -3,8 +3,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 // We only need the DownArrow. We will rotate it for the "Up" state.
-import { DownArrowIcon } from "@/icons"; 
+//import { DownArrowIcon } from "@/icons"; 
 import RevealAnimation from '../animation/RevealAnimation';
+
+// 1. New Icon Logic Imports
+import Icon from '@/components/ui/Icon';
+import { ICONS } from '@/config/icons';
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -64,7 +68,7 @@ const FAQ = () => {
                         2. Added 'rotate-180' class when open to flip the arrow smoothly
                     */}
                     <div className={`transition-transform duration-300 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"}`}>
-                      <DownArrowIcon className="w-4 h-4 fill-gray-400 group-hover:fill-white transition-colors" />
+                      <Icon icon={ICONS.chevronDown} size={20} className="text-gray-400 group-hover:text-white transition-colors" />
                     </div>
                   </button>
 

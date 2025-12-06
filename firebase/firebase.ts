@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, isSupported } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -19,8 +19,25 @@ const firebaseConfig = {
   measurementId: "G-SGH4SH3044"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// 1. Initialize App (Singleton Pattern for Next.js)
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+
+// 2. Initialize Services
 export const auth = getAuth(app);
-export const db = getFirestore(app, "scriptoplay-web");
+export const db = getFirestore(app, 'scriptoplay-web'); // Add "scriptoplay-web" as 2nd arg if you were using a specific database ID
+
+// 3. Initialize Analytics (SAFELY)
+let analytics;
+
+// Check if we are running in the browser (window exists)
+if (typeof window !== "undefined") {
+  // Check if Analytics is supported in this environment
+  isSupported().then((yes) => {
+    if (yes) {
+      analytics = getAnalytics(app);
+    }
+  });
+}
+
+export { analytics };

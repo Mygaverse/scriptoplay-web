@@ -3,7 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from "next/image";
-import { ArrowIcon, XIcon } from '@/icons'; 
+//import { ArrowIcon, XIcon } from '@/icons'; 
+
+// 1. New Icon Logic Imports
+import Icon from '@/components/ui/Icon';
+import { ICONS } from '@/config/icons';
 
 const NavbarLanding = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,10 +71,10 @@ const NavbarLanding = () => {
 
         {/* Action Button using ArrowIcon from your file */}
         <div className="hidden md:block">
-          <Link href="/authentication" className=" text-white px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 shadow-2xl bg-gradient-to-r from-[#DD136A] to-[#482C5C]">
+          <Link href="/authentication" className=" text-white text-sm px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 shadow-2xl bg-gradient-to-r from-[#DD136A] to-[#482C5C]">
             Get Started
              {/* Using your custom ArrowIcon */}
-            <ArrowIcon className="w-4 h-4 stroke-white group-hover:translate-x-1 transition-transform" />
+             <Icon icon={ICONS.arrowRight} size={20} className='text-white group-hover:translate-x-1 transition-transform' />
           </Link>
         </div>
 
@@ -78,7 +82,7 @@ const NavbarLanding = () => {
         <div className="md:hidden">
           <button onClick={() => setIsOpen(!isOpen)} className="text-white">
             {isOpen ? (
-              <XIcon className="w-6 h-6 fill-white" />
+              <Icon icon={ICONS.close} size={28} />
             ) : (
               // Inline Menu Icon
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

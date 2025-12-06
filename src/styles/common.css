@@ -12,7 +12,7 @@ Common Styles all over the sites
 /* ==========Container========== */
 
 @utility main-container {
-  @apply lp:px-0 mx-auto max-w-[1290px] px-5;
+  @apply lg:px-0 mx-auto max-w-[1290px] px-5;
 }
 
 /* ==========SCROLLBAR========== */

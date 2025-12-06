@@ -8,7 +8,7 @@ Font base styles
   h4,
   h5,
   h6 {
-    @apply font-inter-tight text-secondary dark:text-accent;
+    @apply font-outfit text-secondary dark:text-accent;
   }
 
   h1 {

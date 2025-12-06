@@ -1,4 +1,4 @@
-import { DribbleIcon, FacebookIcon, GithubIcon, LinkedinIcon } from '@/icons';
+import { DribbleIcon, FacebookIcon, GithubIcon, LinkedinIcon } from '@/icons/SocialIcon';
 import { FC } from 'react';
 
 export type Platform = 'facebook' | 'dribble' | 'github' | 'linkedin';

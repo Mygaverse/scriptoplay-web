@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
       '@public': './public',
     },
   },
+  images: {
+    // Add 100 to the allowed qualities list
+    qualities: [75, 100], 
+  },
 };
 
 export default nextConfig;
