@@ -1,9 +1,13 @@
 /* =========================
 All the varaiables are added here
 =========================== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @theme {
   /* =============== FONTS =============== */
-  --font-inter-tight: 'Inter Tight', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
   /* =============== COLORS =============== */
   --color-primary-50: #f4f2fe;
   --color-primary-100: #ece8ff;
@@ -85,7 +89,7 @@ All the varaiables are added here
   --team-ease-1: cubic-bezier(10.34, 10.56, 0.64, 40);
 
   /* ==========BREAKPOINTS========== */
-  --breakpoint-lp: 1440px;
+  --breakpoint-lg: 1440px;
 
   /* ==========Shadows========== */
   --shadow-1: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);

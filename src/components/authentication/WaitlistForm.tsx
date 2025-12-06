@@ -2,7 +2,12 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, Loader2 } from 'lucide-react';
+//import { ArrowRight, CheckCircle, Loader2 } from 'lucide-react';
+
+// 1. New Icon Logic Imports
+import Icon from '@/components/ui/Icon';
+import { ICONS } from '@/config/icons';
+
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'; 
 import { db } from '../../../firebase/firebase'; 
 
@@ -68,7 +73,8 @@ export default function WaitlistForm({ onBack, isLoading, setLoading }: Waitlist
     return (
       <div className="text-center animate-in zoom-in duration-300 py-10 w-full">
         <div className="mx-auto w-20 h-20 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center mb-6">
-          <CheckCircle className="w-10 h-10 text-green-500" />
+          <Icon icon={ICONS.checkCircle} size={10} className='text-green-500' />
+          
         </div>
         <h2 className="text-3xl font-bold text-white mb-4">You're on the list!</h2>
         <p className="text-zinc-400 mb-8 max-w-xs mx-auto">
@@ -78,7 +84,7 @@ export default function WaitlistForm({ onBack, isLoading, setLoading }: Waitlist
           href="/"
           className="cursor-pointer text-fuchsia-500 hover:text-fuchsia-400 flex items-center justify-center gap-2 mx-auto transition-colors"
         >
-          Back to Home <ArrowRight className="w-4 h-4" />
+          Back to Home <Icon icon={ICONS.arrowRight} size={18} />
         </Link>
       </div>
     );
@@ -176,8 +182,8 @@ export default function WaitlistForm({ onBack, isLoading, setLoading }: Waitlist
                 disabled={isLoading} 
                 className="cursor-pointer disabled:cursor-not-allowed w-full sm:w-auto px-8 bg-[#C22883] hover:bg-[#a0206b] text-white font-semibold py-3 rounded-lg transition-all shadow-lg shadow-fuchsia-900/20 active:scale-[0.98] flex items-center justify-center gap-2 text-sm"
             >
-                {isLoading ? <Loader2 className="animate-spin w-4 h-4" /> : (
-                  <>Sign up now <ArrowRight className="w-4 h-4" />
+                {isLoading ? <Icon icon={ICONS.spinner} size={4} className="animate-spin w-4 h-4" /> : (
+                  <>Sign up now <Icon icon={ICONS.arrowRight} size={18} />
                   </>
                 )}
             </button>
@@ -186,10 +192,10 @@ export default function WaitlistForm({ onBack, isLoading, setLoading }: Waitlist
 
       {/* Footer / Back Link */}
       <div className="mt-8 flex items-center justify-between border-t border-zinc-800 pt-6">
-         <button onClick={onBack} className="cursor-pointer text-sm text-zinc-500 hover:text-white transition-colors flex items-center gap-1">
+         <button onClick={onBack} className="cursor-pointer text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1">
             &larr; Back to login
          </button>
-         <span className="text-md text-zinc-600">
+         <span className="text-sm text-zinc-600">
             We will contact you within 24 business hours.
          </span>
       </div>

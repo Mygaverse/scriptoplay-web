@@ -3,7 +3,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Eye, EyeOff, Loader2 } from 'lucide-react';
+//import { Eye, EyeOff, Loader2 } from 'lucide-react';
+
+// 1. New Icon Logic Imports
+import Icon from '@/components/ui/Icon';
+import { ICONS } from '@/config/icons';
 
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore'; 
@@ -119,7 +123,7 @@ export default function LoginForm({ onSwitchToWaitlist, isLoading, setLoading }:
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors"
             >
-              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              {showPassword ? <Icon icon={ICONS.eye} size={18} /> : <Icon icon={ICONS.eyeOff} size={18} />}
             </button>
           </div>
         </div>
@@ -137,7 +141,7 @@ export default function LoginForm({ onSwitchToWaitlist, isLoading, setLoading }:
           disabled={isLoading}
           className="cursor-pointer disabled:cursor-not-allowed w-full bg-gradient-to-r from-fuchsia-500 to-purple-700 hover:from-fuchsia-500 hover:to-purple-600 text-white font-semibold py-3.5 rounded-full transition-all shadow-lg shadow-purple-900/20 active:scale-[0.98] flex items-center justify-center gap-2"
         >
-          {isLoading ? <Loader2 className="animate-spin w-5 h-5" /> : 'Sign in'}
+          {isLoading ? <Icon icon={ICONS.spinner} className="animate-spin w-5 h-5" /> : 'Sign in'}
         </button>
       </form>
 

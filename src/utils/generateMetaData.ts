@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
-export const DEFAULT_URL = 'https://next-saas-next.vercel.app/';
-export const DEFAULT_TITLE = 'NextSaaS - Software, SaaS & Startup Tailwind Template';
+export const DEFAULT_URL = 'https://www.scriptoplay.com';
+export const DEFAULT_TITLE = 'Transforming script-to-film through the power of AI';
 export const DEFAULT_DESCRIPTION =
-  'NextSaaS - the ultimate collection of 38+ premium HTML templates for SaaS businesses and startups. Built with Tailwind CSS, featuring responsive design, authentication flows, pricing pages, and modern UI components. Perfect for web applications and digital products.';
+  'AI-powered editing and analysis tools designed to supercharge your storytelling. From formatting to feedback, Scriptoplay is your creative co-pilot.';
 export const DEFAULT_IMAGE_URL = 'https://images.prismic.io/staticmania/aPD-K55xUNkB2D2X_og-image.jpg';
 
 const defaultMetadata: Metadata = {
@@ -12,7 +12,7 @@ const defaultMetadata: Metadata = {
   description: DEFAULT_DESCRIPTION,
   openGraph: {
     type: 'website',
-    siteName: 'NextSaaS',
+    siteName: 'Scriptoplay',
     url: DEFAULT_URL,
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,

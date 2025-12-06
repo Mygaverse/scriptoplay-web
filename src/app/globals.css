@@ -1,9 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ... rest of your css ... */
+
+
 @import 'tailwindcss';
 /* vendors css will be added here */
 
 @import '../styles/variables.css';
-@import '../styles/icon-font.css';
-@import '../styles/typography.css';
 @import '../styles/common.css';
 @import '../styles/base.css';
 @import '../styles/button.css';

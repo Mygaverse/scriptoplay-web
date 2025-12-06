@@ -19,7 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className='scroll-smooth scroll-pt-24' suppressHydrationWarning>
-      <body className={`${outfit.variable} ${outfit.className} antialiased bg-gray-50 text-gray-900 m-0 p-0 overflow-x-hidden`}>
+      <body
+        suppressHydrationWarning
+        className={`${outfit.variable} font-sans antialiased bg-gray-50 text-gray-900 m-0 p-0 overflow-x-hidden`}
+      >
         <AppContextProvider>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
             <Suspense>

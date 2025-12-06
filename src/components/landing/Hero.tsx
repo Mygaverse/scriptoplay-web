@@ -2,9 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowIcon } from "@/icons";
+//import { ArrowIcon } from "@/icons";
 import { motion } from "framer-motion"; // Import motion
 import RevealAnimation from '../animation/RevealAnimation';
+
+// 1. New Icon Logic Imports
+import Icon from '@/components/ui/Icon';
+import { ICONS } from '@/config/icons';
 
 // Update the import path based on where you put the file
 import ParticleBackground from "../animation/ParticleBackground"; 
@@ -65,7 +69,8 @@ const Hero = () => {
             <Link href="/authentication" className=" text-white px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 shadow-2xl bg-gradient-to-r from-[#DD136A] to-[#482C5C]">
               Get Started
               {/* Using your custom ArrowIcon */}
-              <ArrowIcon className="w-4 h-4 stroke-white group-hover:translate-x-1 transition-transform" />
+              <Icon icon={ICONS.arrowRight} size={20} className="text-white group-hover:translate-y-1 transition-transform"/>
+              
             </Link>
             <Link href="#" className="bg-white/10 hover:bg-white/20 border border-white/10 text-white px-4 py-2 rounded-lg font-medium transition-all backdrop-blur-sm">
               How to use Scriptoplay
