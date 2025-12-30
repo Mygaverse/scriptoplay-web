@@ -14,19 +14,24 @@ import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../../../firebase/firebase'; 
 
 interface LoginFormProps {
-  onSwitchToWaitlist: () => void;
+ //onSwitchToWaitlist: () => void;
+  onSwitchToSignup: () => void;
   isLoading: boolean;
   setLoading: (loading: boolean) => void;
 }
 
-export default function LoginForm({ onSwitchToWaitlist, isLoading, setLoading }: LoginFormProps) {
+export default function LoginForm({ onSwitchToSignup, isLoading, setLoading }: LoginFormProps) {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
 
+  // State for handling error messages in the UI
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage(null); // Clear previous errors
     
     try {
        // 1. Authenticate against Firebase Auth
@@ -37,34 +42,35 @@ export default function LoginForm({ onSwitchToWaitlist, isLoading, setLoading }:
        const userDocRef = doc(db, "users", user.uid);
        const userDocSnap = await getDoc(userDocRef);
 
+       document.cookie = "scriptoplay_session=true; path=/; max-age=86400; SameSite=Lax";
+
        if (userDocSnap.exists()) {
         const userData = userDocSnap.data();
 
-        // If 'hasAccess' is explicitly false
-        if (userData.hasAccess === false) {
-           await signOut(auth);
-           alert("Your account is still on the waitlist or pending approval.");
-           setLoading(false);
-           return;
-        }
+        // 3. STRICT REDIRECT LOGIC
+         if (userData.accessStatus === 'approved' || userData.accessStatus === 'admin') {
+            router.push('/dashboard'); // Only approved users go here
+         } else {
+            router.push('/waitlist-pending'); // Everyone else goes here
+         }
+      } else {
+         // Fallback if doc missing (shouldn't happen with our rules)
+         router.push('/waitlist-pending');
        }
-
-       // ============================================================
-       // 3. SET COOKIE FOR MIDDLEWARE ACCESS
-       // ============================================================
-       // We set a cookie valid for 1 day so the Middleware lets the user in.
-       document.cookie = "scriptoplay_session=true; path=/; max-age=86400; SameSite=Lax";
-
-       // 4. Redirect to Dashboard
-       router.push('/dashboard');
-       router.refresh(); // Ensures the middleware state updates immediately
-
+       
+       router.refresh();
+       
      } catch (error: any) {
-       console.error("Login failed", error);
-        let msg = "Login failed.";
-        if (error.code === 'auth/invalid-credential') msg = "Invalid email or password.";
-        if (error.code === 'auth/user-not-found') msg = "No account found with this email.";
-        alert(msg);
+      let msg = "Login failed. Please try again.";
+
+       // Map Firebase error codes to user-friendly messages
+        if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+            msg = "Incorrect email or password.";
+        } else if (error.code === 'auth/too-many-requests') {
+            msg = "Too many failed attempts. Please try again later.";
+        }
+        
+        setErrorMessage(msg);
      } finally {
        setLoading(false);
      }
@@ -103,7 +109,10 @@ export default function LoginForm({ onSwitchToWaitlist, isLoading, setLoading }:
             className="w-full bg-zinc-900/50 border border-zinc-700 focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 outline-none transition-all"
             placeholder="admin@example.com"
             value={formData.email}
-            onChange={(e) => setFormData({...formData, email: e.target.value})}
+            onChange={(e) => {
+                setFormData({...formData, email: e.target.value});
+                setErrorMessage(null); // Clear error when user types
+            }}
           />
         </div>
 
@@ -116,7 +125,10 @@ export default function LoginForm({ onSwitchToWaitlist, isLoading, setLoading }:
               className="w-full bg-zinc-900/50 border border-zinc-700 focus:border-fuchsia-600 focus:ring-1 focus:ring-fuchsia-600 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 outline-none transition-all pr-10"
               placeholder="••••••••"
               value={formData.password}
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
+              onChange={(e) => {
+                  setFormData({...formData, password: e.target.value});
+                  setErrorMessage(null); // Clear error when user types
+              }}
             />
             <button 
               type="button" 
@@ -127,6 +139,14 @@ export default function LoginForm({ onSwitchToWaitlist, isLoading, setLoading }:
             </button>
           </div>
         </div>
+
+        {/* ERROR MESSAGE DISPLAY */}
+        {errorMessage && (
+            <div className="p-3 bg-red-900/20 border border-red-500/30 rounded-lg flex items-center gap-2 text-red-200 text-sm animate-in slide-in-from-top-2">
+                <Icon icon={ICONS.info} size={16} className="text-red-400 shrink-0" />
+                <span>{errorMessage}</span>
+            </div>
+        )}
 
         <div className="flex items-center justify-between text-xs">
           <label className="flex items-center gap-2 text-zinc-400 cursor-pointer select-none">
@@ -147,7 +167,7 @@ export default function LoginForm({ onSwitchToWaitlist, isLoading, setLoading }:
 
       <p className="mt-8 text-center text-zinc-500 text-sm">
         Don't have account yet?{' '}
-        <button onClick={onSwitchToWaitlist} className="cursor-pointer text-fuchsia-300 hover:text-fuchsia-400 font-medium underline-offset-4 hover:underline transition-colors">
+        <button onClick={onSwitchToSignup} className="cursor-pointer text-fuchsia-300 hover:text-fuchsia-400 font-medium underline-offset-4 hover:underline transition-colors">
           Sign up
         </button>
       </p>

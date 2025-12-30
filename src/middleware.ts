@@ -9,11 +9,13 @@ export function middleware(request: NextRequest) {
   const hasSession = request.cookies.has('scriptoplay_session')
 
   // 3. Redirect logic
+  /*
   if (isDashboardPath && !hasSession) {
     const url = request.nextUrl.clone()
     url.pathname = '/authentication'
     return NextResponse.redirect(url)
   }
+    */
 
   return NextResponse.next()
 }

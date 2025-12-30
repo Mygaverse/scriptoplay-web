@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
     // Add 100 to the allowed qualities list
     qualities: [75, 100], 
   },

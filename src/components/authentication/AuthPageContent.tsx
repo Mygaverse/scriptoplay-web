@@ -6,13 +6,17 @@ import Image from 'next/image';
 
 // Import the extracted components
 import LoginForm from './LoginForm';
-import WaitlistForm from './WaitlistForm';
+//import WaitlistForm from './WaitlistForm';
+import SignupForm from './SignupForm';
+
+type AuthView = 'login' | 'signup';
 
 // ==========================================
 // MAIN PAGE CONTENT (State Manager)
 // ==========================================
 const AuthPageContent = () => {
-  const [isWaitlist, setIsWaitlist] = useState(false);
+  const [view, setView] = useState<AuthView>('login');
+  //const [isWaitlist, setIsWaitlist] = useState(false);
   const [loading, setLoading] = useState(false);
 
   return (
@@ -49,15 +53,15 @@ const AuthPageContent = () => {
 
         {/* Form Container Wrapper - Centered */}
         <div className="w-full max-w-md mx-auto mt-10 lg:mt-0">
-          {isWaitlist ? (
-            <WaitlistForm 
-              onBack={() => setIsWaitlist(false)} 
+          {view === 'signup' ? (
+            <SignupForm 
+              onSwitchToLogin={() => setView('login')} 
               isLoading={loading} 
               setLoading={setLoading}
             />
           ) : (
             <LoginForm 
-              onSwitchToWaitlist={() => setIsWaitlist(true)} 
+              onSwitchToSignup={() => setView('signup')} 
               isLoading={loading} 
               setLoading={setLoading}
             />

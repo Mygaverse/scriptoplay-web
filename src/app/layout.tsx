@@ -7,6 +7,7 @@ import { Metadata } from 'next';
 import { ReactNode, Suspense } from 'react';
 
 import './globals.css';
+import { AuthProvider } from '@/context/AuthContext';
 
 export const metadata: Metadata = {
   ...generateMetadata(),
@@ -23,13 +24,15 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${outfit.variable} font-sans antialiased bg-gray-50 text-gray-900 m-0 p-0 overflow-x-hidden`}
       >
-        <AppContextProvider>
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-            <Suspense>
-              <SmoothScrollProvider>{children}</SmoothScrollProvider>
-            </Suspense>
-          </ThemeProvider>
-        </AppContextProvider>
+        <AuthProvider>
+          <AppContextProvider>
+            <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+              <Suspense>
+                <SmoothScrollProvider>{children}</SmoothScrollProvider>
+              </Suspense>
+            </ThemeProvider>
+          </AppContextProvider>
+        </AuthProvider>
       </body>
     </html>
   );
