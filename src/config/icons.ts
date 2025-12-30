@@ -40,8 +40,6 @@ export const ICONS = {
   paperclip: "uil:paperclip", // Upload
   pin: "mdi:pin",      // Pin Down
   shuffle: "hugeicons:shuffle-square",  // Variation
-  heart: 'heart',
-  zap: 'zap',
 
   // Smart Bots
   botMenu: 'solar:robot-2-bold-duotone',
