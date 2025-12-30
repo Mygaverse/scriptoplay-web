@@ -81,7 +81,7 @@ const FeaturesEvaluation = () => {
           </RevealAnimation>
           <RevealAnimation delay={0.5} direction="down" duration={1.2} offset={60}>
             <p className="max-w-3xl mx-auto text-lg font-medium text-gray-500">
-              Get beyond spell checks. Scriptoplay’s evaluation engine delivers intelligent feedback on structure, pacing, dialogue, and character arcs.
+              Get beyond spell checks. Scriptoplay&apos;s evaluation engine delivers intelligent feedback on structure, pacing, dialogue, and character arcs.
             </p>
           </RevealAnimation>
         </div>

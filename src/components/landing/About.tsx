@@ -24,7 +24,7 @@ const About = () => {
         </RevealAnimation>
         <RevealAnimation delay={0.5} direction="down" duration={1.2} offset={60}>
             <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-16">
-                Scriptoplay is more than just a writing tool — it’s a creative partner for screenwriters. Designed by storytellers, powered by AI, and built for impact, we help bring scripts closer to the screen with clarity, quality, and confidence.
+                Scriptoplay is more than just a writing tool — it&apos;s a creative partner for screenwriters. Designed by storytellers, powered by AI, and built for impact, we help bring scripts closer to the screen with clarity, quality, and confidence.
             </p>
         </RevealAnimation>
 
@@ -35,7 +35,7 @@ const About = () => {
                 <div className='h-full'> {/* Ensure height matches for flex layouts */}
                     <AboutCard
                         //icon={<UserGroupIcon />}
-                        icon={<Icon icon={ICONS.users} size={20} />}
+                        icon={<Icon icon={ICONS.user} size={20} />}
                         title="Built for Writers, Backed by AI"
                         desc="We blend creative intuition with cutting-edge technology, so writers can focus on storytelling while our AI handles structure, feedback, and optimization."
                     />

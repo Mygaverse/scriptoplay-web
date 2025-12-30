@@ -74,7 +74,7 @@ const FeaturesGeneration = () => {
           </RevealAnimation>
           <RevealAnimation delay={0.5} direction="down" duration={1.2} offset={60}>
             <p className="max-w-3xl mx-auto text-lg font-medium text-gray-500">
-              Scriptoplay’s generation engine helps you go from a spark of inspiration to a fully structured screenplay.
+              Scriptoplay&apos;s generation engine helps you go from a spark of inspiration to a fully structured screenplay.
             </p>
           </RevealAnimation>
         </div>
