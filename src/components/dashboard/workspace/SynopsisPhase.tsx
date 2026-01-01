@@ -33,7 +33,12 @@ export default function SynopsisPhase({
                 <p className="text-gray-400 text-sm">Expand your logline using generated Narrative Text and World Modules.</p>
             </div>
             <div className="flex gap-2">
-               <Button variant="ghost" size="sm" onClick={onBack}>Edit Logline</Button>
+               <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className='cursor-pointer'
+                    onClick={onBack}
+                >Edit Logline</Button>
                {/* RENAMED BUTTON */}
                <Button 
                  variant="secondary" 
@@ -41,7 +46,7 @@ export default function SynopsisPhase({
                  icon={ICONS.sparkles} 
                  onClick={onMagicPolish}
                  isLoading={isGenerating}
-                 className="bg-purple-900/20 text-purple-300 border-purple-500/30 hover:bg-purple-900/40"
+                 className="bg-purple-900/20 text-purple-300 border-purple-500/30 hover:bg-purple-900/40 cursor-pointer"
                >
                  Magic Polish
                </Button>
@@ -144,8 +149,8 @@ export default function SynopsisPhase({
 
         {/* Action Buttons */}
         <div className="flex items-center justify-between pt-2">
-            <Button variant="ghost" size="md">Save as Draft</Button>
-            <Button variant="primary" size="lg" icon={ICONS.layers}>
+            <Button variant="ghost" size="md" className='cursor-pointer'>Save as Draft</Button>
+            <Button variant="primary" size="lg" icon={ICONS.layers} className='cursor-pointer'>
             Generate Treatment
             </Button>
         </div>
@@ -162,7 +167,7 @@ const ModuleBox = ({ title, icon, color, children, onAdd }: any) => (
                 <h3 className="text-sm font-bold uppercase tracking-wider">{title}</h3>
             </div>
             {/* ADD BUTTON */}
-            <button onClick={onAdd} className={`text-xs ${color} hover:text-white transition-colors pr-3`}>
+            <button onClick={onAdd} className={`text-xs ${color} hover:text-white transition-colors pr-3 cursor-pointer`}>
                 + Add
             </button>
         </div>
