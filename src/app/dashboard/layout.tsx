@@ -1,4 +1,5 @@
 import DashboardShell from '@/components/dashboard/layout/DashboardShell';
+import RouteGuard from '@/components/auth/RouteGuard';
 
 export default function DashboardLayout({
   children,
@@ -7,8 +8,10 @@ export default function DashboardLayout({
 }) {
   return (
     // We pass children through the client shell
-    <DashboardShell>
-      {children}
-    </DashboardShell>
+    <RouteGuard>
+      <DashboardShell>
+        {children}
+      </DashboardShell>
+    </RouteGuard>
   );
 }
