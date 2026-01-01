@@ -291,7 +291,7 @@ export default function ScriptBlender() {
                  </AnimatePresence>
 
                  {/* Blending Vortex Effect */}
-                 {loading && (
+                 {isBlending && (
                     <motion.div 
                       initial={{ opacity: 0, scale: 0.5 }}
                       animate={{ opacity: 1, scale: 1.2, rotate: 360 }}
@@ -308,7 +308,7 @@ export default function ScriptBlender() {
               <button 
                 onClick={handleBlend}
                 disabled={isBlending || selectedItems.length === 0}
-                className={`w-12 h-12 rounded-full border-4 flex items-center justify-center transition-all active:scale-95 shadow-[0_0_20px_rgba(0,0,0,0.5)] cursor-pointer ${
+                className={`w-12 h-12 rounded-full border-4 flex items-center justify-center transition-all active:scale-95 shadow-[0_0_20px_rgba(0,0,0,0.5)] ${
                    isBlending 
                    ? 'bg-red-500 border-red-700 animate-pulse' 
                    : selectedItems.length > 0 
@@ -320,8 +320,6 @@ export default function ScriptBlender() {
               </button>
            </div>
         </div>
-
-        
 
         {/* Results Overlay */}
         <AnimatePresence>
@@ -355,11 +353,10 @@ export default function ScriptBlender() {
                     <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity flex justify-end">
                        <Button 
                         size="sm"
-                        className='cursor-pointer'
                         onClick={() => handleCreateProject(idea.title, idea.desc)}
                         isLoading={loading}
                        >
-                          Open in Workspace <Icon icon={ICONS.arrowRight} className="ml-2"/>
+                          Open in Workspace <Icon icon={ICONS.arrowRight} className="ml-2 cursor-pointer"/>
                       </Button>
                     </div>
                   </motion.div>

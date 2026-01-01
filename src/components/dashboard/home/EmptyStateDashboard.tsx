@@ -18,7 +18,7 @@ export default function EmptyStateDashboard () {
       </div>
 
       {/* BENTO GRID LAYOUT */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12 h-auto lg:h-[600px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12 h-auto lg:h-[500px]">
         
         {/* --- LEFT COLUMN --- */}
         <div className="flex flex-col gap-6 h-full">

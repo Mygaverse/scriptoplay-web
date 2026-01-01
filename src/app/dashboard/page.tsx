@@ -26,7 +26,7 @@ export default function DashboardPage() {
           // Fetch all user projects
           const data = await projectService.getUserProjects(user.uid);
           // Only show the top 4 most recent on the home page
-          setRecentProjects(data.slice(0, 4));
+          setRecentProjects(data.slice(0, 2));
         } catch (error) {
           console.error("Failed to load projects", error);
         } finally {
@@ -40,13 +40,8 @@ export default function DashboardPage() {
   return (
     <div className="w-full h-full flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800">
        <div className="max-w-7xl mx-auto w-full p-8 lg:p-12 space-y-12">
-          
-          {/* 1. TOP SECTION: ALWAYS SHOW EMPTY STATE (TOOLS) */}
-          <section>
-             <EmptyStateDashboard />
-          </section>
 
-          {/* 2. BOTTOM SECTION: RECENT PROJECTS (Only if they exist) */}
+          {/* 1. TOP SECTION: RECENT PROJECTS (Only if they exist) */}
           {!loading && recentProjects.length > 0 && (
             <section className="animate-in slide-in-from-bottom-4 duration-500 border-0 border-[#262626] pt-4">
                <div className="flex justify-between items-end mb-6">
@@ -93,6 +88,11 @@ export default function DashboardPage() {
                </div>
             </section>
           )}
+
+          {/* 2. BOTTOM SECTION: ALWAYS SHOW EMPTY STATE (TOOLS) */}
+          <section>
+             <EmptyStateDashboard />
+          </section>
 
           {/* Footer Links */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
