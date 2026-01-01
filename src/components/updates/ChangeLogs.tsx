@@ -12,6 +12,20 @@ import { motion } from 'framer-motion';
 const updatesData = [
   {
     id: 1,
+    title: "Scriptoplay Dashboard Redesign",
+    version: "v 2.0.1",
+    date: "September 30, 2025",
+    features: [
+      "Introduced genre-based writing assistance with Copilot Modes for Drama, Thriller, Comedy, and Sci-Fi.",
+      "Each mode fine-tunes structure, tone, and pacing for your selected genre.",
+      "Real-time suggestions dynamically adapt to scene type and character interaction.",
+      "New sidebar toggle allows switching modes mid-draft."
+    ],
+    // Placeholders - replace with your real screenshots in public/images folder
+    imageSrc: "/images/script-space.png", 
+  },
+  {
+    id: 2,
     title: "Script Copilot Modes",
     version: "v 1.2.8",
     date: "Mar 15, 2025",
@@ -25,7 +39,7 @@ const updatesData = [
     imageSrc: "/images/script-space.png", 
   },
   {
-    id: 2,
+    id: 3,
     title: "User Dashboard Released",
     version: "v 1.2.7",
     date: "Jan 10, 2025",
@@ -38,7 +52,7 @@ const updatesData = [
     imageSrc: "/images/dashboard-screenshot.png",
   },
   {
-    id: 3,
+    id: 4,
     title: "User Admin Authentication",
     version: "v 1.2.5",
     date: "Nov 26, 2024",
@@ -51,7 +65,7 @@ const updatesData = [
     imageSrc: "/images/sign-in.png",
   },
   {
-    id: 4,
+    id: 5,
     title: "Landing page launched",
     version: "v 1.1.4",
     date: "Oct 15, 2024",
