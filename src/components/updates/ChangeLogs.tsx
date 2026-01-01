@@ -12,14 +12,14 @@ import { motion } from 'framer-motion';
 const updatesData = [
   {
     id: 1,
-    title: "Scriptoplay Dashboard Redesign",
+    title: "Dashboard Redesigned with Bento Grid Layout",
     version: "v 2.0.1",
     date: "September 30, 2025",
     features: [
-      "Introduced genre-based writing assistance with Copilot Modes for Drama, Thriller, Comedy, and Sci-Fi.",
-      "Each mode fine-tunes structure, tone, and pacing for your selected genre.",
-      "Real-time suggestions dynamically adapt to scene type and character interaction.",
-      "New sidebar toggle allows switching modes mid-draft."
+      "Reimagined the user dashboard with a modular bento grid layout replacing the traditional document list.",
+      "Each module highlights key actions — such as Start New Script, View Insights, Recent Activity, and Shortcuts to Tools.",
+      "Improves navigation, visual clarity, and task discovery for both new and returning users.",
+      "Responsive layout optimized for desktop and tablet breakpoints."
     ],
     // Placeholders - replace with your real screenshots in public/images folder
     imageSrc: "/images/script-space.png", 
