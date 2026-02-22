@@ -49,6 +49,11 @@ const SmoothScrollProvider = ({ children }: Readonly<SmoothScrollingProps>) => {
     };
   }, [lenis, pathname]);
 
+  // Disable Lenis on Dashboard pages to allow native nested scrolling
+  if (pathname.startsWith('/dashboard')) {
+    return <>{children}</>;
+  }
+
   return (
     <ReactLenis root options={{ duration: 1.1 }}>
       {children}

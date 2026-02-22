@@ -17,7 +17,8 @@ export default function RouteGuard({ children }: { children: React.ReactNode }) 
     // 2. Logic: Not Logged In
     if (!user) {
       // If trying to access dashboard, kick to login
-      if (pathname.startsWith('/dashboard')) {
+      // EXCEPTION: Allow access to Migration Page so users can debug/login there if needed
+      if (pathname.startsWith('/dashboard') && !pathname.startsWith('/dashboard/migration')) {
         router.push('/authentication');
       }
       return;
@@ -26,7 +27,8 @@ export default function RouteGuard({ children }: { children: React.ReactNode }) 
     // 3. Logic: Logged In but Waitlisted
     if (user.accessStatus === 'waitlist') {
       // If trying to access dashboard, kick to pending page
-      if (pathname.startsWith('/dashboard')) {
+      // EXCEPTION: Allow access to Migration Page
+      if (pathname.startsWith('/dashboard') && !pathname.startsWith('/dashboard/migration')) {
         router.push('/waitlist-pending');
       }
       return;
@@ -40,7 +42,7 @@ export default function RouteGuard({ children }: { children: React.ReactNode }) 
   }, [user, loading, router, pathname]);
 
   // --- RENDERING PROTECTION ---
-  
+
   // A. While checking Firebase, show Spinner (Blocks content)
   if (loading) {
     return <LoadingScreen message="Verifying Access..." />;
@@ -48,11 +50,11 @@ export default function RouteGuard({ children }: { children: React.ReactNode }) 
 
   // B. If no user, OR user is waitlisted, DO NOT RENDER CHILDREN (Blocks content)
   // This prevents the "Flash of Unauthenticated Content"
-  if (!user && pathname.startsWith('/dashboard')) {
-    return null; 
+  if (!user && pathname.startsWith('/dashboard') && !pathname.startsWith('/dashboard/migration')) {
+    return null;
   }
 
-  if (user?.accessStatus === 'waitlist' && pathname.startsWith('/dashboard')) {
+  if (user?.accessStatus === 'waitlist' && pathname.startsWith('/dashboard') && !pathname.startsWith('/dashboard/migration')) {
     return null;
   }
 

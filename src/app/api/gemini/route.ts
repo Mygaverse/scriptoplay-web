@@ -25,11 +25,16 @@ export async function POST(req: Request) {
 
   } catch (error: any) {
     console.error("----------- GEMINI API ERROR -----------");
-    console.error(error); // This will show the exact reason in your terminal
+    console.error(error);
     console.error("----------------------------------------");
-    
-    return NextResponse.json({ 
-      error: error.message || "AI Generation Failed" 
+
+    // Check for Rate Limit (Google uses 429 or specific message)
+    if (error.message?.includes('429') || error.status === 429) {
+      return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 });
+    }
+
+    return NextResponse.json({
+      error: error.message || "AI Generation Failed"
     }, { status: 500 });
   }
 }
