@@ -1,10 +1,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // 1. Tell Turbopack to ignore the ffmpeg binary packages
-  experimental: {
-    serverComponentsExternalPackages: ['@ffmpeg-installer/ffmpeg', '@ffmpeg-installer/linux-x64'],
-  },
+  // Use the new key 'serverExternalPackages' directly under nextConfig
+  serverExternalPackages: ['@ffmpeg-installer/ffmpeg', '@ffmpeg-installer/linux-x64'],
+
   turbopack: {
     resolveAlias: {
       '@': './src',
