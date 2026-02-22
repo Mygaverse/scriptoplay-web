@@ -8,7 +8,8 @@ export const INITIAL_SIDEBAR_DATA: SidebarSection[] = [
     items: [
       { id: 'dash', label: 'Dashboard', icon: ICONS.dashboard, href: '/dashboard' },
       { id: 'docs', label: 'My Projects', icon: ICONS.folder, href: '/dashboard/projects' },
-      
+      { id: 'assets', label: 'My Assets', icon: ICONS.image, href: '/dashboard/assets' },
+
     ]
   },
   {
@@ -23,8 +24,8 @@ export const INITIAL_SIDEBAR_DATA: SidebarSection[] = [
     title: 'AI Content',
     items: [
       { id: 'writer', label: 'AI Writer', icon: ICONS.documents },
-      
+
     ]
   },
-  
+
 ];

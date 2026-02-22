@@ -7,9 +7,7 @@ import Link from 'next/link';
 // 1. New Icon Logic Imports
 import Icon from '@/components/ui/Icon';
 import { ICONS } from '@/config/icons';
-
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'; 
-import { db } from '../../../firebase/firebase'; 
+import { createClient } from '@/lib/supabase/client';
 
 interface WaitlistFormProps {
   onBack: () => void;
@@ -27,35 +25,27 @@ export default function WaitlistForm({ onBack, isLoading, setLoading }: Waitlist
     purpose: '',
     message: ''
   });
+  const supabase = createClient();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      await addDoc(collection(db, "waitlist_requests"), {
-        ...form,
-        createdAt: serverTimestamp(),
-        status: 'pending_review',
+      const { error } = await supabase
+        .from('waitlist_requests')
+        .insert({
+          name: form.name,
+          email: form.email,
+          company: form.company,
+          role: form.role,
+          purpose: form.purpose,
+          message: form.message,
+          status: 'pending'
+        });
 
-        // --- FIELDS FOR FIREBASE EMAIL EXTENSION ---
-        to: form.email, 
-        message: {
-          subject: "Welcome to the Scriptoplay Waitlist!",
-          html: `
-            <h3>Hi ${form.name},</h3>
-            <p>Thanks for your interest in Scriptoplay. We have received your request.</p>
-            <p><strong>Company:</strong> ${form.company}</p>
-            <p><strong>Role:</strong> ${form.role}</p>
-            <p><strong>Purpose:</strong> ${form.purpose}</p>
-            <p><strong>Message:</strong> ${form.message}</p>
-            <p>Our system is currently available for invites only. But once we are available for public test, we'll contact you!</p>
-            <br />
-            <p>The Scriptoplay Team</p>
-          `
-        }
-      });
-      
+      if (error) throw error;
+
       setSuccess(true);
     } catch (error) {
       console.error("Waitlist error", error);
@@ -74,13 +64,13 @@ export default function WaitlistForm({ onBack, isLoading, setLoading }: Waitlist
       <div className="text-center animate-in zoom-in duration-300 py-10 w-full">
         <div className="mx-auto w-20 h-20 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center mb-6">
           <Icon icon={ICONS.checkCircle} size={10} className='text-green-500' />
-          
+
         </div>
         <h2 className="text-3xl font-bold text-white mb-4">You're on the list!</h2>
         <p className="text-zinc-400 mb-8 max-w-xs mx-auto">
           Something amazing is coming. We've sent a confirmation email to <span className="text-white font-medium">{form.email}</span>.
         </p>
-        <Link 
+        <Link
           href="/"
           className="cursor-pointer text-fuchsia-500 hover:text-fuchsia-400 flex items-center justify-center gap-2 mx-auto transition-colors"
         >
@@ -126,9 +116,9 @@ export default function WaitlistForm({ onBack, isLoading, setLoading }: Waitlist
           <div className="space-y-1.5">
             <label className="text-zinc-300 text-xs font-medium uppercase tracking-wide">Select Role *</label>
             <div className='relative'>
-              <select name="role" required 
-                      className="w-full bg-zinc-900 border border-zinc-700 focus:border-fuchsia-600 rounded-lg px-3 py-2.5 text-white outline-none text-sm appearance-none transition-colors" 
-                      value={form.role} onChange={handleChange}
+              <select name="role" required
+                className="w-full bg-zinc-900 border border-zinc-700 focus:border-fuchsia-600 rounded-lg px-3 py-2.5 text-white outline-none text-sm appearance-none transition-colors"
+                value={form.role} onChange={handleChange}
               >
                 <option value="" disabled>Select Your Roles</option>
                 <option value="writer">Screenwriter</option>
@@ -147,9 +137,9 @@ export default function WaitlistForm({ onBack, isLoading, setLoading }: Waitlist
           <div className="space-y-1.5">
             <label className="text-zinc-300 text-xs font-medium uppercase tracking-wide">Purpose *</label>
             <div className="relative">
-              <select name="purpose" required 
-                      className="w-full bg-zinc-900 border border-zinc-700 focus:border-fuchsia-600 rounded-lg px-3 py-2.5 text-white outline-none text-sm appearance-none transition-colors" 
-                      value={form.purpose} onChange={handleChange}
+              <select name="purpose" required
+                className="w-full bg-zinc-900 border border-zinc-700 focus:border-fuchsia-600 rounded-lg px-3 py-2.5 text-white outline-none text-sm appearance-none transition-colors"
+                value={form.purpose} onChange={handleChange}
               >
                 <option value="" disabled>Select Your Purpose</option>
                 <option value="scriptwriting">Testing Scriptwriting</option>
@@ -167,37 +157,37 @@ export default function WaitlistForm({ onBack, isLoading, setLoading }: Waitlist
         {/* Row 4: Message */}
         <div className="space-y-1.5">
           <label className="text-zinc-300 text-xs font-medium uppercase tracking-wide">Messages</label>
-          <textarea 
-            name="message" rows={3} 
-            className="w-full bg-zinc-900 border border-zinc-700 focus:border-fuchsia-600 rounded-lg px-3 py-2.5 text-white outline-none text-sm placeholder:text-zinc-600 transition-colors resize-none" 
-            placeholder="Tell us more about your project" 
-            value={form.message} onChange={handleChange} 
+          <textarea
+            name="message" rows={3}
+            className="w-full bg-zinc-900 border border-zinc-700 focus:border-fuchsia-600 rounded-lg px-3 py-2.5 text-white outline-none text-sm placeholder:text-zinc-600 transition-colors resize-none"
+            placeholder="Tell us more about your project"
+            value={form.message} onChange={handleChange}
           />
         </div>
 
         {/* Submit Button */}
         <div className="pt-2">
-            <button 
-                type="submit" 
-                disabled={isLoading} 
-                className="cursor-pointer disabled:cursor-not-allowed w-full sm:w-auto px-8 bg-[#C22883] hover:bg-[#a0206b] text-white font-semibold py-3 rounded-lg transition-all shadow-lg shadow-fuchsia-900/20 active:scale-[0.98] flex items-center justify-center gap-2 text-sm"
-            >
-                {isLoading ? <Icon icon={ICONS.spinner} size={4} className="animate-spin w-4 h-4" /> : (
-                  <>Sign up now <Icon icon={ICONS.arrowRight} size={18} />
-                  </>
-                )}
-            </button>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="cursor-pointer disabled:cursor-not-allowed w-full sm:w-auto px-8 bg-[#C22883] hover:bg-[#a0206b] text-white font-semibold py-3 rounded-lg transition-all shadow-lg shadow-fuchsia-900/20 active:scale-[0.98] flex items-center justify-center gap-2 text-sm"
+          >
+            {isLoading ? <Icon icon={ICONS.spinner} size={4} className="animate-spin w-4 h-4" /> : (
+              <>Sign up now <Icon icon={ICONS.arrowRight} size={18} />
+              </>
+            )}
+          </button>
         </div>
       </form>
 
       {/* Footer / Back Link */}
       <div className="mt-8 flex items-center justify-between border-t border-zinc-800 pt-6">
-         <button onClick={onBack} className="cursor-pointer text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1">
-            &larr; Back to login
-         </button>
-         <span className="text-sm text-zinc-600">
-            We will contact you within 24 business hours.
-         </span>
+        <button onClick={onBack} className="cursor-pointer text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1">
+          &larr; Back to login
+        </button>
+        <span className="text-sm text-zinc-600">
+          We will contact you within 24 business hours.
+        </span>
       </div>
     </div>
   );
