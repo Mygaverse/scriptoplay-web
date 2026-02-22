@@ -1,15 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-//import { Eye, EyeOff, Loader2 } from 'lucide-react';
 
 // 1. New Icon Logic Imports
 import Icon from '@/components/ui/Icon';
 import { ICONS } from '@/config/icons';
 import { useAuth } from '@/context/AuthContext';
-
 
 interface LoginFormProps {
   //onSwitchToWaitlist: () => void;
@@ -20,29 +18,34 @@ interface LoginFormProps {
 
 export default function LoginForm({ onSwitchToSignup, isLoading, setLoading }: LoginFormProps) {
   const router = useRouter();
-  const { signInWithEmail, signInWithGoogle } = useAuth();
+  const { signInWithEmail, signInWithGoogle, user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
 
   // State for handling error messages in the UI
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Auto-redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      router.push('/dashboard');
+    }
+  }, [user, router]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setErrorMessage(null); // Clear previous errors
+    setErrorMessage(null);
 
     try {
       await signInWithEmail(formData.email, formData.password);
-      // redirect handled in context or middleware usually, but force here if needed
-      router.push('/dashboard');
-      router.refresh();
-
+      // Do NOT manually push to /dashboard here.
+      // onAuthStateChange in AuthContext will fire → fetchProfile → setUser
+      // The useEffect above will then redirect once user is set.
     } catch (error: any) {
       let msg = "Login failed. Please try again.";
 
       // Map Error codes
-      // Supabase errors
       if (error.message === 'Invalid login credentials') {
         msg = "Incorrect email or password.";
       } else if (error.message) {

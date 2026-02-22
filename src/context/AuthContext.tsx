@@ -163,8 +163,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       password
     });
     if (error) throw error;
-    // router.refresh() handles state update via onAuthStateChange
-    router.refresh();
+    // onAuthStateChange will fire automatically and call fetchProfile
   };
 
   const signUpWithEmail = async (email: string, password: string, data: { displayName: string }) => {
