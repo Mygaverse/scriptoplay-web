@@ -184,7 +184,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
     setSession(null);
     router.push('/authentication');
-    router.refresh();
   };
 
   return (
