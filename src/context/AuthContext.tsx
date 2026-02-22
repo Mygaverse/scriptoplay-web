@@ -76,34 +76,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return () => subscription.unsubscribe();
   }, []);
 
+
   const fetchProfile = async (userId: string, retries = 3) => {
     try {
+      // Always get auth user first as the baseline
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+
+      // Try to fetch DB profile
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
         .single();
 
-      if (error) {
-        if (error.code !== 'PGRST116') {
-          console.error('Error fetching profile:', JSON.stringify(error, null, 2));
-          // Retry logic for network errors
-          if (retries > 0) {
-            console.log(`Retrying profile fetch... (${retries} attempts left)`);
-            setTimeout(() => fetchProfile(userId, retries - 1), 2000);
-            return;
-          }
-        }
+      if (error && error.code !== 'PGRST116') {
+        console.error('Error fetching profile:', JSON.stringify(error, null, 2));
       }
 
       const userData = data || {};
 
-      // Merge Auth User metadata if profile is missing fields or doesn't exist
-      const { data: { user: authUser } } = await supabase.auth.getUser();
-
       const finalUser: UserProfile = {
         id: userId,
-        uid: userId, // Match Supabase
+        uid: userId,
         email: authUser?.email,
 
         // Profile DB takes precedence, fallback to Auth Meta
@@ -117,14 +111,38 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         studioName: userData.studio_name,
         role: userData.role,
 
-        access_status: userData.access_status || 'waitlist',
-        accessStatus: userData.access_status || 'waitlist' as any
+        // IMPORTANT: if DB fetch fails, fallback to 'approved' so auth users can access the app
+        // A missing profile row should not lock a valid auth user out
+        access_status: userData.access_status || (authUser ? 'approved' : 'waitlist'),
+        accessStatus: (userData.access_status || (authUser ? 'approved' : 'waitlist')) as any
       };
 
       setUser(finalUser);
 
     } catch (err) {
-      console.error(err);
+      console.error('fetchProfile critical error:', err);
+      // Even on total failure, try to set a minimal user so auth users aren't locked out
+      try {
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        if (authUser) {
+          setUser({
+            id: userId,
+            uid: userId,
+            email: authUser.email,
+            displayName: authUser.user_metadata?.full_name || null,
+            display_name: authUser.user_metadata?.full_name || null,
+            photoURL: authUser.user_metadata?.avatar_url || null,
+            photo_url: authUser.user_metadata?.avatar_url || null,
+            studio_name: null,
+            studioName: null,
+            role: null,
+            access_status: 'approved',
+            accessStatus: 'approved'
+          });
+        }
+      } catch (fallbackErr) {
+        console.error('Fallback user set failed:', fallbackErr);
+      }
     } finally {
       setLoading(false);
     }
