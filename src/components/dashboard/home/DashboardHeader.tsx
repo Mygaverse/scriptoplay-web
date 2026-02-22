@@ -14,7 +14,7 @@ export default function DashboardHeader() {
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
         <div>
           <p className="text-sm text-gray-400 mb-1">Dashboard</p>
-          {/* We will hook this 'Alan' up to Firebase Auth later */}
+          {/* We will hook this 'Alan' up to Supabase Auth later */}
           <h1 className="text-3xl font-bold text-white">Welcome, Alan.</h1>
         </div>
         <div className="flex items-center gap-4">
@@ -40,11 +40,10 @@ export default function DashboardHeader() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`pb-4 text-sm transition-colors relative whitespace-nowrap ${
-              activeTab === tab
+            className={`pb-4 text-sm transition-colors relative whitespace-nowrap ${activeTab === tab
                 ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-purple-600'
                 : 'text-gray-400 hover:text-white'
-            }`}
+              }`}
           >
             {tab}
           </button>

@@ -1,6 +1,6 @@
 # 🎬 Scriptoplay Web App
 
-**Scriptoplay** is an AI-powered platform that helps screenwriters transform ideas into production-ready scripts. This web app is built with **Next.js**, uses **Firebase** for authentication and backend services, and is styled with **Styled Components** for modular and scalable design.
+**Scriptoplay** is an AI-powered platform that helps screenwriters transform ideas into production-ready scripts. This web app is built with **Next.js**, uses **Supabase** for authentication and backend services, and is styled with **Styled Components** for modular and scalable design.
 
 ---
 
@@ -9,7 +9,7 @@
 - ✍️ AI-Powered Script Generation
 - 🎭 Genre-Aware Scene and Dialogue Assistance
 - 📊 Script Evaluation Dashboard
-- 🔐 Firebase Authentication (Email-based login)
+- 🔐 Supabase Authentication (Email-based login)
 - 📝 Waitlist Signup
 - 📢 Updates & Changelog Page
 
@@ -21,7 +21,7 @@
 |---------------|----------------------------------------|
 | Next.js       | Frontend framework                     |
 | React         | Component structure                    |
-| Firebase      | Auth & backend                         |
+| Supabase      | Auth & backend                         |
 | Styled Components | Component-scoped styling         |
 | Vercel        | Deployment                             |
 | GitHub        | Version control & collaboration        |

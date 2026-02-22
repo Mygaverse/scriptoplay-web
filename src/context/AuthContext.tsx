@@ -102,7 +102,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       const finalUser: UserProfile = {
         id: userId,
-        uid: userId, // Match Firebase
+        uid: userId, // Match Supabase
         email: authUser?.email,
 
         // Profile DB takes precedence, fallback to Auth Meta

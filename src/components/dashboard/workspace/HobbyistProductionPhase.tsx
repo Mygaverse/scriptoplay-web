@@ -123,7 +123,7 @@ export default function HobbyistProductionPhase({ projectData, onBack, onSave, o
 
             const data = await res.json();
             if (data.url) {
-              // Convert data URI to Blob and upload to Firebase
+              // Convert data URI to Blob and upload to Supabase
               setStatusText('Uploading Final Master Video...');
               const response = await fetch(data.url);
               const blob = await response.blob();

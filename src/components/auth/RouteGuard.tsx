@@ -43,7 +43,7 @@ export default function RouteGuard({ children }: { children: React.ReactNode }) 
 
   // --- RENDERING PROTECTION ---
 
-  // A. While checking Firebase, show Spinner (Blocks content)
+  // A. While checking Supabase, show Spinner (Blocks content)
   if (loading) {
     return <LoadingScreen message="Verifying Access..." />;
   }

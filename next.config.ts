@@ -2,7 +2,12 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   // Use the new key 'serverExternalPackages' directly under nextConfig
-  serverExternalPackages: ['@ffmpeg-installer/ffmpeg', '@ffmpeg-installer/linux-x64'],
+  // Add fluent-ffmpeg to the external packages list
+  serverExternalPackages: [
+    '@ffmpeg-installer/ffmpeg',
+    '@ffmpeg-installer/linux-x64',
+    'fluent-ffmpeg'
+  ],
 
   turbopack: {
     resolveAlias: {
