@@ -121,7 +121,7 @@ export default function Topbar({ isCollapsed }: TopbarProps) {
                 <div className="px-4 py-3 border-b border-[#262626]">
                   <p className="text-sm font-bold text-white truncate">{user?.displayName || "Scriptwriter"}</p>
                   <p className="text-xs text-gray-500 truncate">{user?.email}</p>
-                  {user?.studio_name && <p className="text-[10px] text-purple-400 mt-0.5">{user.studio_name}</p>}
+                  {user?.studioName && <p className="text-[10px] text-purple-400 mt-0.5">{user.studioName}</p>}
                 </div>
 
                 {/* Menu Items */}

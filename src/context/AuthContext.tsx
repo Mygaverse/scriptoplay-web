@@ -14,6 +14,7 @@ interface UserProfile {
   photo_url?: string | null;
   photoURL?: string | null; // Compatibility
   studio_name?: string | null;
+  studioName?: string | null; // Compatibility
   role?: string | null;
   accessStatus?: 'waitlist' | 'approved' | 'admin'; // Compatibility camelCase
   access_status?: 'waitlist' | 'approved' | 'admin'; // Supabase snake_case
@@ -113,6 +114,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         photoURL: userData.photo_url || authUser?.user_metadata?.avatar_url,
 
         studio_name: userData.studio_name,
+        studioName: userData.studio_name,
         role: userData.role,
 
         access_status: userData.access_status || 'waitlist',

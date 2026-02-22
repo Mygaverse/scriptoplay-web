@@ -10,6 +10,7 @@ import { useAuth } from '@/context/AuthContext';
 import { storageService } from '@/services/storageService';
 import { assetService } from '@/services/assetService';
 import { VISUAL_STYLES, getStyleConfig } from '@/config/styles';
+import ShotPreviewModal from '@/components/shared/ShotPreviewModal';
 
 // --- Types ---
 type VisualAsset = {
@@ -58,6 +59,7 @@ export default function VisualGallery({ logline, beats, data, onBack, onNext, ve
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatingAssetId, setGeneratingAssetId] = useState<string | null>(null);
   const [isAutoGeneratingAll, setIsAutoGeneratingAll] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   // Generate PROMPT
   const handleGeneratePrompt = async (assetId: string) => {
@@ -445,7 +447,7 @@ export default function VisualGallery({ logline, beats, data, onBack, onNext, ve
               <div className="relative group/image mt-auto">
                 <img src={asset.image} alt={asset.name} className="w-full h-48 object-cover rounded-xl border border-[#333]" />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/image:opacity-100 flex items-center justify-center transition-opacity rounded-xl gap-2">
-                  <button onClick={() => window.open(asset.image, '_blank')} className="p-2 bg-white/10 rounded-full hover:bg-white/20 text-white">
+                  <button onClick={() => setPreviewUrl(asset.image!)} className="p-2 bg-white/10 rounded-full hover:bg-white/20 text-white">
                     <Icon icon={ICONS.eye} size={20} />
                   </button>
                   <button onClick={() => handleGenerateImage(asset.id)} className="p-2 bg-purple-600 rounded-full hover:bg-purple-700 text-white">
@@ -504,6 +506,9 @@ export default function VisualGallery({ logline, beats, data, onBack, onNext, ve
           </button>
         )}
       </div>
+
+      {/* Shot Preview Modal */}
+      {previewUrl && <ShotPreviewModal imageUrl={previewUrl} onClose={() => setPreviewUrl(null)} />}
 
       {/* FOOTER NAV */}
       <div className="flex justify-between items-center mt-12 pt-6 border-t border-[#262626]">

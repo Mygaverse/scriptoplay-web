@@ -10,6 +10,7 @@ import { useAuth } from '@/context/AuthContext';
 import { assetService } from '@/services/assetService';
 import { storageService } from '@/services/storageService';
 import { VISUAL_STYLES, getStyleConfig } from '@/config/styles';
+import ShotPreviewModal from '@/components/shared/ShotPreviewModal';
 
 // --- Types ---
 type ScriptScene = {
@@ -43,6 +44,7 @@ export default function CartoonScriptAssembly({ logline, beats, assets, config, 
   const { user } = useAuth();
   const [script, setScript] = useState<ScriptScene[]>([]);
   const [isGeneratingScript, setIsGeneratingScript] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [generatingSceneId, setGeneratingSceneId] = useState<string | null>(null);
 
   // 1. Hydrate from Config (Persistence Fix)
@@ -532,7 +534,7 @@ export default function CartoonScriptAssembly({ logline, beats, assets, config, 
                     <>
                       <img src={scene.production_image} alt="Shot" className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                        <button onClick={() => window.open(scene.production_image, '_blank')} className="p-3 bg-white/10 rounded-full hover:bg-white text-white hover:text-black transition-all">
+                        <button onClick={() => setPreviewUrl(scene.production_image!)} className="p-3 bg-white/10 rounded-full hover:bg-white text-white hover:text-black transition-all">
                           <Icon icon={ICONS.eye} size={20} />
                         </button>
                         <button
@@ -571,6 +573,9 @@ export default function CartoonScriptAssembly({ logline, beats, assets, config, 
           ))
         )}
       </div>
+
+      {/* Shot Preview Modal */}
+      {previewUrl && <ShotPreviewModal imageUrl={previewUrl} onClose={() => setPreviewUrl(null)} />}
 
       {/* FOOTER NAV */}
       <div className="flex justify-between items-center mt-12 pt-6 border-t border-[#262626]">

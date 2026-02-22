@@ -121,8 +121,8 @@ export default function FilmEditor({
                 <button
                   onClick={() => setPhase(p.id)}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${isActive
-                      ? 'bg-purple-600 text-white shadow-lg shadow-purple-900/40 ring-1 ring-purple-400'
-                      : 'bg-[#1a1a1a] text-gray-400 hover:text-white'
+                    ? 'bg-purple-600 text-white shadow-lg shadow-purple-900/40 ring-1 ring-purple-400'
+                    : 'bg-[#1a1a1a] text-gray-400 hover:text-white'
                     }`}
                 >
                   <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${isActive ? 'bg-white text-purple-600 font-bold' : isPast ? 'bg-purple-500 text-black' : 'bg-[#262626]'
@@ -157,10 +157,14 @@ export default function FilmEditor({
                 isGenerated={isGenerated}
                 isMagicMode={isMagicMode}
                 onNext={() => { onSave({ logline: loglineText }); setPhase('synopsis'); }}
-                onGenerateSynopsis={() => generateSynopsisData(loglineText)}
+                onGenerateBeatSheet={() => generateSynopsisData(loglineText)}
                 isGenerating={isGenerating}
                 onSaveDraft={() => onSaveDraft('logline', { ...projectData, logline: loglineText })}
                 versions={versions}
+                selectedStyle={projectData?.style || ''}
+                onSelectStyle={() => { }}
+                selectedAudience={projectData?.audience || ''}
+                onSelectAudience={() => { }}
               />
             )}
 
