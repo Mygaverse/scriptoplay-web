@@ -1,6 +1,10 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // 1. Tell Turbopack to ignore the ffmpeg binary packages
+  experimental: {
+    serverComponentsExternalPackages: ['@ffmpeg-installer/ffmpeg', '@ffmpeg-installer/linux-x64'],
+  },
   turbopack: {
     resolveAlias: {
       '@': './src',
@@ -14,8 +18,7 @@ const nextConfig: NextConfig = {
         hostname: 'images.unsplash.com',
       },
     ],
-    // Add 100 to the allowed qualities list
-    qualities: [75, 100], 
+    qualities: [75, 100],
   },
 };
 
